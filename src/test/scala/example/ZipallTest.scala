@@ -1,3 +1,4 @@
+package example
 
 class ZipallTest extends Spec {
   "zipping different sizes" in {

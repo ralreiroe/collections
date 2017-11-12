@@ -1,3 +1,5 @@
+package example
+
 import org.scalatest.{FlatSpec, Matchers}
 
 class SetTests extends FlatSpec with Matchers {

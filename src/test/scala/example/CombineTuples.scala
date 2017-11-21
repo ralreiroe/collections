@@ -10,7 +10,7 @@ class CombineTuples extends Spec {
       case (acc, (left,right)) => {
         acc.get(left) match {
           case None => acc + (left -> right)
-          case Some(r) => acc + (left -> (acc(left)+ right))
+          case Some(r) => acc + (left -> (r + right))
         }
       }
     }.toSet

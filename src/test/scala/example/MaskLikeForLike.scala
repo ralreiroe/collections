@@ -41,6 +41,8 @@ class MaskLikeForLike extends Spec with Matchers {
       val charStream1: Stream[Char] = Stream continually nextAlphaNum
       Stream.cons(nextAlphaNum, Stream.continually(nextAlphaNum))
       nextAlphaNum #:: Stream.continually(nextAlphaNum)
+
+      nextAlphaNum #:: alphanumeric
     }
 
     def i(x:Int, y:Int): Stream[Int] = (x*y) #:: i(x+1,y*2)

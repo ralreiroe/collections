@@ -2,8 +2,10 @@ package example
 
 import scala.annotation.tailrec
 
-class DiffTest extends Spec {
+class FindMatchingPairsInLists extends Spec {
   "Find matching pairs in two sorted lists" in {
+    //find matching pairs in sorted lists
+    //if equal add, otherwise we know the smaller of the two won't be found in the larger of the two
 
     def matchingPairs(l1: List[Int], l2: List[Int]): List[(Int, Int)] = matchingPairs0(l1, l2, List.empty[(Int, Int)])
 

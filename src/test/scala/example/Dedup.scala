@@ -1,5 +1,7 @@
 package example
 
+import scala.collection.mutable
+
 class Dedup extends Spec {
 
   "groupBy f:A->B, el becomes key, f(el) is added to value" in {
@@ -10,12 +12,12 @@ class Dedup extends Spec {
 
   "dedup with preserving order" in {
 
-    def dedupPreservingOrder(ints: Seq[Int]): Seq[Int] = {
-      val s = scala.collection.mutable.HashSet.empty[Int]
-      ints.foldLeft(Seq.empty[Int]) {
+    def dedupPreservingOrder[T](ints: Seq[T]): Seq[T] = {
+      val seen = mutable.Set.empty[T]     //default implementation of Set is HashSet; use this to record seen
+      ints.foldLeft(Seq.empty[T]) {
         case (acc, curr) => {
-          if (!s.apply(curr)) {
-            s.+=(curr)
+          if (!seen.apply(curr)) {
+            seen.+=(curr)
             curr +: acc
           } else acc
         }

@@ -1,9 +1,11 @@
 package example
 
+import org.scalatest.GivenWhenThen
+
 import scala.collection.immutable.Stream
 import scala.util.Random
 
-class StreamExamples extends Spec {
+class StreamExamples extends Spec with GivenWhenThen {
 
   """turn a function into a stream of functions.
     |
@@ -30,10 +32,13 @@ class StreamExamples extends Spec {
 
   "b" in {
 
+    Given("definition of stream")
     def rep(i: Int): Stream[String] = s"${i} times" #:: rep(i+1)
 
+    When("stream instance created")
     val s: Stream[String] = "once" #:: "twice" #:: rep(3)
 
+    Then("print first 10 elements")
     s.take(10) foreach println
 
 

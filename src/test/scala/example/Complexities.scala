@@ -35,6 +35,17 @@ class Complexities extends Spec {
 
   }
 
+  """A trie is a tree.
+    |A short wide tree. Rather than a binary tree, it is a 32-ary tree
+    |So each node is an Array[32]. On the 5th level that is already 32^5 ~ 33 Mill pointers. If these held a 4-byte primitive Int the data would already be 132Gb
+    |Memory: Nodes are not preactively allocated for a level, only as needed.
+    |Lookup/Insert time: log to base 32 which if "effectively constant"
+    |Because it is a tree it can be made immutable through effective structural sharing.
+  """.stripMargin in {
+
+    //https://stackoverflow.com/questions/20612729/how-does-scalas-vector-work
+  }
+
   /**
     * https://alvinalexander.com/scala/understanding-performance-scala-collections-classes-methods-cookbook
     */

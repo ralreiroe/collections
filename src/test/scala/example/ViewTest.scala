@@ -24,13 +24,13 @@ class ViewTest extends Spec {
     }
 
     final class InitialView[A](xs: List[A]) extends PseudoView[A] {
-      def map[B](f: A => B) = new ComposedView(xs, f)
+      def map[B](f: A => B) = new DelayedMap(xs, f)
 
       def force: List[A] = xs
     }
 
-    final class ComposedView[A, B](xs: List[A], fa: A => B) extends PseudoView[B] {
-      def map[C](fb: B => C): PseudoView[C] = new ComposedView[A, C](xs, fa.andThen(fb))    //<=====COMPOSITION!! NO INTERMEDIATE COLLECTIONS...
+    final class DelayedMap[A, B](xs: List[A], fa: A => B) extends PseudoView[B] {
+      def map[C](fb: B => C): PseudoView[C] = new DelayedMap[A, C](xs, fa.andThen(fb))    //<=====COMPOSITION!! NO INTERMEDIATE COLLECTIONS...
 
       def force: List[B] = xs.map(fa)
     }

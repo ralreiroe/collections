@@ -1,0 +1,104 @@
+package example
+
+import scala.collection.immutable
+import scala.collection.mutable.ListBuffer
+
+class Bowling extends Spec {
+
+  def score(i : Int)(implicit rolls: List[Int]): Int = {
+
+    (i, i % 2) match {
+      case (0,_) => rolls(0)
+      case (_,0) => score(i-1)+rolls(i)
+      case (_,1) => scoreOdd(i)
+      case (_,_) => throw new Exception("unexpected")
+    }
+
+  }
+
+  def scoreOdd(i: Int)(implicit rolls: List[Int]): Int = {
+
+    (rolls(i-1),rolls(i)) match {
+      case (0, 10) => score(i-1) + rolls(i) + rolls.drop(i+1).filter(_ > 0).take(2).sum              //strike
+      case (a,b) if a+b==10 => score(i-1) + rolls(i) + rolls.drop(i+1).filter(_ > 0).take(1).sum     //spare
+      case (a,b) => score(i-1) + rolls(i)
+    }
+
+  }
+
+  "score bowling game" in {
+
+
+    implicit val rolls = List(1,4,2,8,5,3,0,10,6,2)
+
+    score(0) shouldBe 1
+    score(1) shouldBe 5
+    score(2) shouldBe 7
+    score(3) shouldBe 20
+    score(4) shouldBe 25
+    score(5) shouldBe 28
+    score(6) shouldBe 28
+    score(7) shouldBe 46
+
+
+  }
+
+
+  "strike" in {
+    implicit val rolls = List(0,10,6,2)
+
+    score(0) shouldBe 0
+    score(1) shouldBe 18
+
+  }
+
+  "many strikes" in {
+    implicit val rolls = List(0,10,0,10,0,10)
+
+    score(0) shouldBe 0
+    score(1) shouldBe 30
+
+  }
+  "not enough rolls" in {
+    implicit val rolls = List(0,10,0,10,0)
+
+    score(0) shouldBe 0
+    score(1) shouldBe 20
+
+  }
+
+  "12 strikes" in {
+    implicit val rolls = List(0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10)
+    println(rolls.size)
+
+    score(0) shouldBe 0
+    score(1) shouldBe 30
+    score(19) shouldBe 300
+
+  }
+
+  "others" in {
+    var rolls = List(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+    score(19)(rolls) shouldBe 20
+    rolls = List(5,5,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+    score(19)(rolls) shouldBe 16
+  }
+
+
+  "api" in {
+
+    trait Game {
+      val rolls = ListBuffer(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+      var currentRoll = 0
+      def roll(pins: Int) = {
+        (currentRoll % 2, pins) match {
+          case (0, 10) => currentRoll = currentRoll+1; rolls(currentRoll) = 10
+        }
+        rolls(currentRoll) = pins
+        currentRoll = currentRoll+1
+      }
+      def score()
+    }
+
+  }
+}

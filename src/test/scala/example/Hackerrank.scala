@@ -10,11 +10,14 @@ class Hackerrank extends Spec {
 
       val sums = for (i <- 0 to 4) yield n.sum - n(i)
 
-      println(sums.min)
       println(sums.max)
 
 
+      val min = sums.reduce {
+        (acc,curr) => Math.min(acc,curr)
+      }
 
+      println(min)
 
     }
 

@@ -5,27 +5,30 @@ class Hackerrank extends Spec {
 
   "sfjksjh" in {
 
+    def fourSumCount(A: List[Int], B: List[Int], C: List[Int], D: List[Int]): Int = {
 
+      val n = A.size - 1
+      var cnt = 0
 
-    def cesar(s: String, r: Int =3) = {
+      for (i <- 0 to n)
+        for (j <- 0 to n)
+          for (k <- 0 to n)
+            for (l <- 0 to n) {
 
+              if (A(i) + B(j) + C(k) + D(l) == 0) cnt = cnt + 1
+            }
 
-      val alphabet = "abcdefg"
-      val alphabetr = alphabet.substring(r,alphabet.length)+alphabet.substring(0,r)
-
-      println(alphabet)
-      println(alphabetr)
-      println(alphabet,alphabetr)
-
-
-      println(alphabet.indexOf('d'))
-
+      cnt
     }
 
+    val A = List(1, 2)
+    val B = List(-2, -1)
+    val C = List(-1, 2)
+    val D = List(0, 2)
 
-    cesar("")
+
+    println(fourSumCount(A,B,C,D))
+
   }
-
-
 
 }

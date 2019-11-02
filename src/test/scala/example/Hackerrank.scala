@@ -5,18 +5,26 @@ class Hackerrank extends Spec {
 
   "sfjksjh" in {
 
-    def props(a: List[Int]) = {
+    def staircase(n: Int) = {
 
-      val pos = a.filter(_>0).size * 1.0/a.size
-      val neg = a.filter(_<0).size * 1.0/a.size
-      val zeros = a.filter(_==0).size * 1.0/a.size
+      for (i <- 1 to n) {
+        println(createString(" ", n-i) + createString("#", i))
+      }
 
-      println(pos)
-      println(neg)
-      println(zeros)
     }
 
-    props(Array(1,2,3, -1, 0).toList)
+    def createString(p: String, n: Int) = {
+      var fullstr = ""
+      for (_ <- 1 to n) fullstr = fullstr+p
+      fullstr
+    }
+
+    println
+    println(createString(" ", 5))
+    println(createString("#", 1))
+    println
+    staircase(6)
+
 
   }
 

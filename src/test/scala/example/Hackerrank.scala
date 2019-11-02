@@ -16,7 +16,9 @@ class Hackerrank extends Spec {
     def createString(p: String, n: Int) = {
 
       val seq = for (_ <- 1 to n) yield p
-      seq.mkString("")
+      seq.foldLeft("") {
+        (acc, curr) => acc+curr
+      }
     }
 
     println

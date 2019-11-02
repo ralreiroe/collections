@@ -13,15 +13,13 @@ class Hackerrank extends Spec {
 
     }
 
-    def createString(p: String, n: Int) = {
-      var fullstr = ""
-      for (_ <- 1 to n) fullstr = fullstr+p
-      fullstr
+    def createString(p: String, n: Int): String = {
+      if (n<=0) return ""
+      p + createString(p, n-1)
     }
 
     println
-    println(createString(" ", 5))
-    println(createString("#", 1))
+    println(createString("x", 5))
     println
     staircase(6)
 

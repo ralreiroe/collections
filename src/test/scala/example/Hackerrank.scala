@@ -5,24 +5,16 @@ class Hackerrank extends Spec {
 
   "sfjksjh" in {
 
-    def minmaxSum(n: List[Int]) = {
+    def candleBlow(heights: List[Int]) = {
 
 
-      val sums = for (i <- 0 to 4) yield n.sum - n(i)
-
-      println(sums.max)
-
-
-      val min = sums.reduce {
-        (acc,curr) => Math.min(acc,curr)
-      }
-
-      println(min)
+      heights.filter(_==heights.max).size
 
     }
 
 
-    minmaxSum(List(1,3,5,7,9))
+    val highestCandles = candleBlow(List(3,3,1,2))
+    println(highestCandles)
 
   }
 

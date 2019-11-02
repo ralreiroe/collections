@@ -5,13 +5,21 @@ class Hackerrank extends Spec {
 
   "sfjksjh" in {
 
-    def staircase(n: Int) = {
+    def minmaxSum(n: List[Int]) = {
 
-      for (i <- 1 to n) {
-        println(" " * (n-i) + "#" * i)
-      }
+
+      val sums = for (i <- 0 to 4) yield n.sum - n(i)
+
+      println(sums.min)
+      println(sums.max)
+
+
+
 
     }
+
+
+    minmaxSum(List(1,3,5,7,9))
 
   }
 

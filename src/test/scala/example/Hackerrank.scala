@@ -8,7 +8,7 @@ class Hackerrank extends Spec {
     def candleBlow(heights: List[Int]) = {
 
 
-      heights.filter(_==heights.max).size
+      heights.count(_ == heights.max)
 
     }
 

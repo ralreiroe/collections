@@ -6,43 +6,78 @@ import scala.collection.mutable.ListBuffer
 
 class Hackerrank extends Spec {
 
-  "sfjksjh" in {
+  /**
+    * randomizedSet with two maps
+v to idx
+idx to v
+for getrandom, get random 0...size-1, then use that for idx
+    */
+  class RandomizedSet() {
 
-    def fourSumCount(A: List[Int], B: List[Int], C: List[Int], D: List[Int]): Int = {
 
-      val n = A.size - 1
-      var cnt = 0
 
-      val absumToCnt = mutable.Map.empty[Int,Int]
+    val vToIdx = mutable.Map.empty[Int, Int]
+    val idxToV = mutable.Map.empty[Int, Int]
 
-      for (i <- 0 to n)
-        for (j <- 0 to n) {
-          val sum = A(i)+B(j)
-          absumToCnt.+=(
-            (sum, absumToCnt.getOrElse(sum, 0)+1))
-        }
-      for (i <- 0 to n)
-        for (j <- 0 to n) {
-          val sum = C(i)+D(j)
-          if (absumToCnt.isDefinedAt(-sum)) cnt = cnt+absumToCnt(-sum)
-        }
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    def insert(v: Int): Boolean = {
 
-      cnt
+      val alreadycontains = vToIdx.isDefinedAt(v)
+      if (alreadycontains) return false
+
+      val idx = idxToV.size
+      idxToV.+=((idx, v))
+      vToIdx.+=((v,idx))
+
+      println(idxToV)
+      println(vToIdx)
+
+      !alreadycontains
     }
 
-    var A = List(1, 2)
-    var B = List(-2, -1)
-    var C = List(-1, 2)
-    var D = List(0, 2)
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    def remove(v: Int): Boolean = {
 
-    println(fourSumCount(A,B,C,D))
+      val contains = vToIdx.isDefinedAt(v)
+      if (!contains) return false
 
-    A = List(-1, -1)
-    B = List(-1, 1)
-    C = List(-1, 1)
-    D = List(1, -1)
+      vToIdx.remove(v)
+      idxToV.remove(vToIdx(idxToV(v)))
+      true
 
-    println(fourSumCount(A,B,C,D))
+    }
+
+    /** Get a random element from the set. */
+    def getRandom(): Int = {
+
+      if (idxToV.size==0) return -1
+      val r = scala.util.Random
+
+      val randnum = r.nextInt(idxToV.size)
+
+      idxToV(randnum)
+    }
+
+  }
+
+  "sfjksjh" in {
+
+    val rs = new RandomizedSet()
+    println(rs.getRandom())
+    println(rs.remove(1))
+    println(rs.insert(1))
+    println(rs.insert(1))
+    println(rs.getRandom())
+    println(rs.insert(2))
+    println(rs.insert(3))
+
+    for (i <- 1 to 100) print(rs.getRandom)
+
+
+
+
+
+
   }
 
 }

@@ -11,12 +11,16 @@ class Hackerrank extends Spec {
       var cnt = 0
 
       for (i <- 0 to n)
-        for (j <- 0 to n)
-          for (k <- 0 to n)
+        for (j <- 0 to n) {
+          val ir = A(i)+B(j)
+          for (k <- 0 to n) {
+            val ir2 = ir+C(k)
             for (l <- 0 to n) {
-
-              if (A(i) + B(j) + C(k) + D(l) == 0) cnt = cnt + 1
+              if (ir2 + D(l) == 0) cnt = cnt + 1
             }
+
+          }
+        }
 
       cnt
     }

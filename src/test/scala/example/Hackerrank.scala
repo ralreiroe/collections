@@ -29,9 +29,6 @@ for getrandom, get random 0...size-1, then use that for idx
       idxToV.+=((idx, v))
       vToIdx.+=((v,idx))
 
-      println(idxToV)
-      println(vToIdx)
-
       !alreadycontains
     }
 
@@ -41,8 +38,8 @@ for getrandom, get random 0...size-1, then use that for idx
       val contains = vToIdx.isDefinedAt(v)
       if (!contains) return false
 
+      idxToV.remove(vToIdx(v))
       vToIdx.remove(v)
-      idxToV.remove(vToIdx(idxToV(v)))
       true
 
     }
@@ -50,11 +47,12 @@ for getrandom, get random 0...size-1, then use that for idx
     /** Get a random element from the set. */
     def getRandom(): Int = {
 
+      println(idxToV)
+      println(vToIdx)
+
       if (idxToV.size==0) return -1
       val r = scala.util.Random
-
       val randnum = r.nextInt(idxToV.size)
-
       idxToV(randnum)
     }
 
@@ -64,20 +62,42 @@ for getrandom, get random 0...size-1, then use that for idx
 
     val rs = new RandomizedSet()
     println(rs.getRandom())
-    println(rs.remove(1))
-    println(rs.insert(1))
-    println(rs.insert(1))
+    println(rs.insert(11))
+    println(rs.remove(22))
+    println(rs.insert(22))
     println(rs.getRandom())
-    println(rs.insert(2))
-    println(rs.insert(3))
+    println(rs.remove(11))
+    println(rs.insert(22))
+    println(rs.getRandom())
 
-    for (i <- 1 to 100) print(rs.getRandom)
-
-
-
+//    for (i <- 1 to 100) print(rs.getRandom)
 
 
 
+
+
+
+  }
+
+
+
+  "twosum" in {
+
+
+    def twoSum(nums: Array[Int], target: Int): Array[Int] = {
+
+
+      for (i1 <- 0 until nums.size) {
+        for (i2 <- i1+1 until nums.size) {
+          if (nums(i1)+nums(i2)==target) return Array(i1,i2)
+        }
+      }
+
+      Array(0,0)
+
+    }
+
+    twoSum(Array(3,2,4), 6)
   }
 
 }

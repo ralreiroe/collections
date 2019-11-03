@@ -21,35 +21,28 @@ class Hackerrank extends Spec {
           absumToCnt.+=(
             (sum, absumToCnt.getOrElse(sum, 0)+1))
         }
-      val cdsumToCnt = mutable.Map.empty[Int,Int]
-
       for (i <- 0 to n)
         for (j <- 0 to n) {
           val sum = C(i)+D(j)
-          cdsumToCnt.+=(
-            (sum, cdsumToCnt.getOrElse(sum, 0)+1))
+          if (absumToCnt.isDefinedAt(-sum)) cnt = cnt+absumToCnt(-sum)
         }
-
-      for (abs <- absumToCnt.keys) {
-        for (cds <- cdsumToCnt.keys) {
-          if (abs+cds==0) cnt = cnt+(absumToCnt(abs)*cdsumToCnt(cds))
-        }
-      }
-
-      println(absumToCnt)
-      println(cdsumToCnt)
 
       cnt
     }
 
-    val A = List(1, 2)
-    val B = List(-2, -1)
-    val C = List(-1, 2)
-    val D = List(0, 2)
-
+    var A = List(1, 2)
+    var B = List(-2, -1)
+    var C = List(-1, 2)
+    var D = List(0, 2)
 
     println(fourSumCount(A,B,C,D))
 
+    A = List(-1, -1)
+    B = List(-1, 1)
+    C = List(-1, 1)
+    D = List(1, -1)
+
+    println(fourSumCount(A,B,C,D))
   }
 
 }

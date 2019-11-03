@@ -1,5 +1,7 @@
 package example
 
+import scala.collection.mutable.ListBuffer
+
 
 class Hackerrank extends Spec {
 
@@ -10,17 +12,24 @@ class Hackerrank extends Spec {
       val n = A.size - 1
       var cnt = 0
 
+      val absums = ListBuffer.empty[Int]
+
       for (i <- 0 to n)
         for (j <- 0 to n) {
-          val ir = A(i)+B(j)
-          for (k <- 0 to n) {
-            val ir2 = ir+C(k)
-            for (l <- 0 to n) {
-              if (ir2 + D(l) == 0) cnt = cnt + 1
-            }
-
-          }
+          absums.+=(A(i)+B(j))
         }
+      val cdsums = ListBuffer.empty[Int]
+
+      for (i <- 0 to n)
+        for (j <- 0 to n) {
+          cdsums.+=(C(i)+D(j))
+        }
+
+      for (abs <- absums) {
+        for (cds <- cdsums) {
+          if (abs+cds==0) cnt = cnt+1
+        }
+      }
 
       cnt
     }

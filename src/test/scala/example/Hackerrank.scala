@@ -81,7 +81,7 @@ for getrandom, get random 0...size-1, then use that for idx
 
 
 
-  "twosum" in {
+  "indices of two numbers that add up to target" in {
 
 
     def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -98,6 +98,37 @@ for getrandom, get random 0...size-1, then use that for idx
     }
 
     twoSum(Array(3,2,4), 6)
+  }
+
+  "twoSum class" in {
+
+    class TwoSum {
+
+      val arr = ListBuffer.empty[Int]
+
+      //O(1)
+      def add(n: Int) = {
+        arr.+=(n)
+        this
+      }
+
+      //O(n^2)
+      def find(n: Int): Boolean = {
+        for (e <- arr) {
+          for (e2 <- arr) {
+            if (e+e2==n) return true
+          }
+        }
+
+        return false
+      }
+    }
+
+    val ts = new TwoSum
+
+    println(ts.add(3).add(2).add(4).find(6))
+    println(ts.add(1).add(3).add(5).find(4))
+    println(ts.add(1).add(3).add(5).find(7))
   }
 
 }

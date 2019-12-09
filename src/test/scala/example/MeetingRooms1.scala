@@ -25,6 +25,9 @@ class MeetingRooms1 extends Spec {
 
     }
 
+    /**
+      * O(n^2) as it requires to compare every meeting with every other one
+      */
     def canAttendAllMeetings (intervals: List[(Int, Int)]): Boolean = {
 
       if (intervals.size==1) return true

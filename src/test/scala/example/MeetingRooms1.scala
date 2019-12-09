@@ -27,9 +27,13 @@ class MeetingRooms1 extends Spec {
 
     def canAttendAllMeetings (intervals: List[(Int, Int)]): Boolean = {
 
-      for (int <- intervals) {
-        for (into <- intervals) {
-          if (doesOverlap(int, into)) return false
+      if (intervals.size==1) return true
+
+      //0 with 1,2
+      //1 with 2
+      for (i <- intervals.indices) {
+        for (i2 <- i+1 to intervals.size-1) {
+          if (doesOverlap(intervals(i), intervals(i2))) return false
         }
       }
       true
@@ -37,6 +41,8 @@ class MeetingRooms1 extends Spec {
 
     println(canAttendAllMeetings(intervals))
     println(canAttendAllMeetings(intervals2))
+    println(canAttendAllMeetings(List((0,30), (5, 10))))
+    println(canAttendAllMeetings(List((0,30), (31, 50))))
 
   }
 

@@ -9,7 +9,7 @@ class MeetingRooms1 extends Spec {
     |return false.""" in {
 
     val intervals = List((0,30), (5, 10), (15,20))
-    val intervals2 = List((0,30), (31, 50), (60,90))
+    val intervals2 = List((0,30), (31, 50), (32,33))
 
 
 
@@ -26,21 +26,24 @@ class MeetingRooms1 extends Spec {
     }
 
     /**
-      * O(n^2) as it requires to compare every meeting with every other one
+      * if we sort, we only need to compare adjacent meetings => O(nlogn) + O(n)
+      *
+      * (a,b), (c,d), (e,f) -
+      * if (a,b) does not overlap with (c,d) and (e,f) starts later than (c,d) then
+      * we know (a,b) cannot overlap with (e,f) without explicitly testing this
       */
     def canAttendAllMeetings (intervals: List[(Int, Int)]): Boolean = {
 
-      if (intervals.size==1) return true
+      if (intervals.size == 1) return true
 
-      //0 with 1,2
-      //1 with 2
-      for (i <- intervals.indices) {
-        for (i2 <- i+1 to intervals.size-1) {
-          if (doesOverlap(intervals(i), intervals(i2))) return false
-        }
+      //sorted.size>=2
+      val sorted: List[(Int, Int)] = intervals.sorted
+      for (idx <- 0 to sorted.size-2) {
+        if (doesOverlap(sorted(idx), sorted(idx+1))) return false
       }
       true
     }
+
 
     println(canAttendAllMeetings(intervals))
     println(canAttendAllMeetings(intervals2))

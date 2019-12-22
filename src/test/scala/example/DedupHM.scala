@@ -13,13 +13,16 @@ class DedupHM extends Spec {
 
     val reslist = mutable.ListBuffer.empty[Int]
 
-    for (el <- list) {
+    list.foldLeft(reslist) {
+      case (acc, el) => {
 
-      if (!set.contains(el)) {
-        set.+=(el)
-        reslist.+=(el)
+        if (!set.contains(el)) {
+          set.+=(el)
+          acc.+=(el)
+        } else {
+          acc
+        }
       }
-
     }
 
     reslist shouldBe mutable.ListBuffer(1, 2, 3, 5, 6, 7)

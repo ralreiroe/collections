@@ -12,12 +12,7 @@ class DedupHM extends Spec {
 
     val set = new mutable.HashSet[Int]()
 
-
-    for (el <- list) {
-      if (!set.contains(el)) {
-        set.add(el)
-      }
-    }
+    list.map(set.add(_))
 
     println(set.toList)
   }

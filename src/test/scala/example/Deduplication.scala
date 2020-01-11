@@ -2,7 +2,7 @@ package example
 
 import scala.collection.mutable
 
-class Dedup extends Spec {
+class Deduplication extends Spec {
 
   "groupBy f:A->B, el becomes key, f(el) is added to value" in {
 

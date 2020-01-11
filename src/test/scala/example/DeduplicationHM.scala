@@ -2,7 +2,7 @@ package example
 
 import scala.collection.mutable
 
-class DedupHM extends Spec {
+class DeduplicationHM extends Spec {
 
 
   "dedup preserving order" in {

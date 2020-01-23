@@ -19,10 +19,10 @@ class SecondSmallestElement extends Spec {
         }
       }
 
-      min2
+      (min1, min2)
     }
 
-    println(sndSmallest(coll))
+    sndSmallest(coll) shouldBe (1,2)
 
 
   }

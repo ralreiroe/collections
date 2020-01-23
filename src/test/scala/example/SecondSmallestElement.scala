@@ -13,7 +13,7 @@ class SecondSmallestElement extends Spec {
       for (el <- coll) {
 
         el match {
-          case x if (x < min1) => min1 = x
+          case x if (x < min1) => { min2 = min1; min1 = x }
           case x if (x < min2) => min2 = x
           case _ =>
         }
